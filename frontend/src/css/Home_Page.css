@@ -473,6 +473,7 @@ a {
 .info-contact .info-container img {
   height: 14rem;
   object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
   margin: auto;
 }
 .info-contact .info-container ul {
