@@ -1,1 +1,33 @@
+input::placeholder,
+textarea::placeholder {
+  -webkit-font-smoothing: antialiased;
+  color: #9999993d;
+}
+input:-ms-input-placeholder,
+textarea::-webkit-input-placeholder {
+  -webkit-font-smoothing: antialiased;
+  color: #9999993d;
+}
+input:-ms-input-placeholder,
+textarea:-moz-placeholder {
+  -webkit-font-smoothing: antialiased;
+  color: #9999993d;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  -webkit-font-smoothing: antialiased;
+  color: #9999993d;
+}
 
+.loading-spinner {
+  animation: rotate 0.5s infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

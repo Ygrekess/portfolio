@@ -6,12 +6,17 @@
   margin: auto;
   min-width: 300px;
 }
+.project-page .header-text,
+.project-page .header-text ul li a,
+.project-page .social-container svg {
+  color: #000;
+}
 .project-page-content {
   width: 100%;
 }
 /* Header project */
 .header-project {
-  background: rgb(250, 169, 169);
+  background: #c6f5fd;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -29,7 +34,7 @@
   font-weight: 100;
   padding: 1rem;
   padding-right: 5rem;
-  color: #ffff;
+  color: #000;
 }
 .project-details p:nth-child(1) {
   text-align: justify;
@@ -241,6 +246,10 @@
 
 /* RESPONSIVE */
 @media (max-width: 1000px) {
+  .project-page .social-container {
+    top: 2.5rem;
+    bottom: inherit;
+  }
   .header-project {
     height: auto;
     margin-bottom: 0;

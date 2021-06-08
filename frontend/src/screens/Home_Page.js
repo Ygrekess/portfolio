@@ -18,6 +18,7 @@ export default function Header_Part() {
   const [load, setLoad] = useState(true);
   const [errorEmail, setErrorEmail] = useState("");
   const [errorForm, setErrorForm] = useState("");
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset, watch, errors } = useForm();
 
   const onClickFlip = (e) => {
@@ -44,6 +45,7 @@ export default function Header_Part() {
   const onSubmit = async (dataForm) => {
     if (dataForm.name && dataForm.email && dataForm.phone && !errorEmail) {
       try {
+        setLoading(true);
         const data = await axios.post("/api/sendemail", {
           name: dataForm.name,
           company: dataForm.company,
@@ -52,10 +54,12 @@ export default function Header_Part() {
           message: dataForm.message,
         });
         if (data) {
+          setLoading(false);
           notify.show("Votre message a été envoyé !", "success", 5000);
           reset({});
         }
       } catch (error) {
+        setLoading(false);
         notify.show(
           "Impossible d'envoyer votre message. Veuillez réessayer.",
           "danger",
@@ -73,34 +77,22 @@ export default function Header_Part() {
 
       <div className="wrapper">
         <div className="parallax__group header-container" id="home">
-          <div
-            className="parallax__layer sky"
-            style={{ backgroundColor: "" }}
-          ></div>
-          <div
-            className="parallax__layer paris-3"
-            style={{
-              backgroundImage: "url(/images-site/paris-immeubles-4.png)",
-            }}
-          ></div>
-          <div
-            className="parallax__layer paris-2"
-            style={{
-              backgroundImage: "url(/images-site/paris-immeubles-3.png)",
-            }}
-          ></div>
-          <div
-            className="parallax__layer paris-1"
-            style={{
-              backgroundImage: "url(/images-site/paris-immeubles-2.png)",
-            }}
-          ></div>
-          <div className="title-container">
-            <h1>Je code.</h1>
+          <div className="parallax__layer header-design">
+            <div className="my-name">
+              <h2>
+                <span>Youssef</span>
+                <br />
+                Seghrouchni
+              </h2>
+              <div className="separator-header"></div>
+              <p>Développeur Web Front-end</p>
+            </div>
+            <div className="image-container">
+              <img src="/images-site/header-banniere.png" />
+            </div>
           </div>
 
           <div className="parallax__layer header-text">
-            <h2>SEGHROUCHNI Youssef</h2>
             <ul>
               <li>
                 <a href="#home">
@@ -139,7 +131,10 @@ export default function Header_Part() {
           </div>
         </div>
         <div className="parallax__group info-part" id="info-part">
-          <img src="/images-site/sheep.jpg" alt="funny sheep" />
+          <img
+            src="/images-site/tete-portfolio.png"
+            alt="youssef Seghrouchni"
+          />
           <div className="text-container">
             <h2>Qui suis-je ?</h2>
             <p>
@@ -160,6 +155,10 @@ export default function Header_Part() {
           </div>
         </div>
         <div className="parallax__group projects-part" id="projects-part">
+          <div className="text-container">
+            <h2>Mes projets ?</h2>
+            <p>La liste est courte mais elle ne demande qu'à s'allonger.</p>
+          </div>
           <div className="projects-container">
             {data.map((projet, i) => (
               <div className="project-container" key={i}>
@@ -177,10 +176,6 @@ export default function Header_Part() {
             ))}
             <div />
           </div>
-          <div className="text-container">
-            <h2>Mes projets ?</h2>
-            <p>La liste est courte mais elle ne demande qu'à s'allonger.</p>
-          </div>
         </div>
         <div className="parallax__group contact-part" id="contact-part">
           <div className="map-container">
@@ -190,7 +185,10 @@ export default function Header_Part() {
             <form className="form-contact" onSubmit={handleSubmit(onSubmit)}>
               <div className="info-contact">
                 <div className="info-container">
-                  <img src="/images-site/tete.jpg" alt="ma_tête" />
+                  <img
+                    src="/images-site/tete-portfolio.png"
+                    alt="youssef Seghrouchni"
+                  />
                   <ul>
                     <li>
                       <FaMapMarkerAlt size={30} /> Nantes, France.
@@ -302,26 +300,34 @@ export default function Header_Part() {
                     onBlur={(e) => {
                       e.target.classList.remove("onfocus");
                     }}
-                    rows={5}
+                    rows={7}
                     name="message"
                     ref={register()}
                   />
                 </div>
-                {errors.name && (
-                  <span className="danger">Merci de saisir votre nom.</span>
-                )}
-                {(errors.email || errorEmail) && (
-                  <span className="danger">
-                    {errors.email ? "Merci de saisir votre email." : errorEmail}
-                  </span>
-                )}
-                {errors.phone && (
-                  <span className="danger">
-                    Merci de saisir votre téléphone.
-                  </span>
-                )}
+                <div className="error-container">
+                  {errors.name && (
+                    <span className="danger">Merci de saisir votre nom.</span>
+                  )}
+                  {(errors.email || errorEmail) && (
+                    <span className="danger">
+                      {errors.email
+                        ? "Merci de saisir votre email."
+                        : errorEmail}
+                    </span>
+                  )}
+                  {errors.phone && (
+                    <span className="danger">
+                      Merci de saisir votre téléphone.
+                    </span>
+                  )}
+                </div>
                 <button type="submit">
-                  <RiMailSendLine size={20} />
+                  {loading ? (
+                    <ImSpinner className="loading-spinner" size={20} />
+                  ) : (
+                    <RiMailSendLine size={20} />
+                  )}
                 </button>
               </div>
             </form>

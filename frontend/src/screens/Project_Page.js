@@ -81,7 +81,6 @@ export default function Project_Page(props) {
   return (
     <div className="project-page">
       <div className="parallax__layer header-text">
-        <h2>SEGHROUCHNI Youssef</h2>
         <ul>
           <li>
             <a href="/#home">
